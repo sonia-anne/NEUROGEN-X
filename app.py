@@ -32,7 +32,12 @@ st.subheader("🧪 Treatment Effectiveness (Prion Clearance Rate)")
 fig2 = go.Figure()
 fig2.add_trace(go.Bar(x=years, y=effectiveness_trad, name='Traditional'))
 fig2.add_trace(go.Bar(x=years, y=effectiveness_ngx, name='NEUROGEN-X'))
-fig2.update_layout(barmode='group', title="Degradation Efficiency (%)", xaxis_title="Year", yaxis_title="Efficiency")
+fig2.update_layout(
+    barmode='group',
+    title="Degradation Efficiency (%)",
+    xaxis_title="Year",
+    yaxis_title="Efficiency"
+)
 st.plotly_chart(fig2, use_container_width=True)
 
 # --- Survival Rate ---
