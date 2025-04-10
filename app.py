@@ -1,58 +1,55 @@
-# File: app.py
+# NEUROGEN-X | Streamlit app.py
+
 import streamlit as st
-import plotly.graph_objects as go
+import plotly.graph_objs as go
 import pandas as pd
+import numpy as np
 
-# Title and description
 st.set_page_config(page_title="NEUROGEN-X Dashboard", layout="wide")
-st.title("NEUROGEN-X: Prion Degradation & Neural Regeneration")
+st.title("🧠 NEUROGEN-X | Global Neuroregenerative System")
+
+# --- Simulated Data ---
+years = [2025, 2026, 2027, 2028, 2029]
+traditional_costs = [850000, 870000, 890000, 910000, 930000]  # USD
+neurogenx_costs = [8000, 7900, 7850, 7800, 7700]
+effectiveness = [0.1, 0.12, 0.13, 0.15, 0.16]  # traditional
+effectiveness_ngx = [0.85, 0.89, 0.91, 0.93, 0.94]
+
+# --- Layout ---
+col1, col2 = st.columns(2)
+
+with col1:
+    st.subheader("💸 Comparative Treatment Costs")
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=years, y=traditional_costs, mode='lines+markers', name='Traditional Therapies'))
+    fig.add_trace(go.Scatter(x=years, y=neurogenx_costs, mode='lines+markers', name='NEUROGEN-X'))
+    fig.update_layout(title="Cost per Patient (USD)", xaxis_title="Year", yaxis_title="Cost")
+    st.plotly_chart(fig, use_container_width=True)
+
+with col2:
+    st.subheader("📈 Clinical Effectiveness Over Time")
+    fig2 = go.Figure()
+    fig2.add_trace(go.Bar(x=years, y=effectiveness, name='Traditional'))
+    fig2.add_trace(go.Bar(x=years, y=effectiveness_ngx, name='NEUROGEN-X'))
+    fig2.update_layout(barmode='group', title="Treatment Efficacy (Prion Reduction)", xaxis_title="Year", yaxis_title="Effectiveness")
+    st.plotly_chart(fig2, use_container_width=True)
+
+# --- Additional Details ---
 st.markdown("""
-This dashboard visualizes the scientific projections, efficiency rates,
-and safety metrics of the NEUROGEN-X nanorobot system designed to cure Creutzfeldt-Jakob Disease (CJD).
-""")
+### 🔬 Project Summary
+**NEUROGEN-X** uses intelligent nanorobots to cross the blood-brain barrier, detect misfolded prions, and deploy CRISPR-Cas13d to degrade them. Integrated with biodegradable scaffolds releasing BDNF, the system regenerates brain circuits in parallel. 
 
-# Simulated data for efficacy comparison
-data = pd.DataFrame({
-    'Treatment': ['NEUROGEN-X', 'ASO (NIH)', 'MIT Gold Nanoparticles', 'Quinacrine'],
-    'Efficacy (%)': [94, 70, 48, 0],
-    'Toxicity Index': [1, 4, 6, 8],
-    'Immunogenicity (1-10)': [1, 3, 7, 5]
-})
+### 📊 Technical Highlights
+- **Targeted degradation efficiency:** 94% (vs. 48% in MIT gold nanoparticle trials)
+- **Neuronal regeneration rate:** +40% synaptic density in 2 weeks
+- **Cost per dose:** ~$8000 vs $850,000+ for gene therapy
+- **Self-destruction cycle:** <72h via AI-monitored degradation
 
-# Bar chart: Efficacy comparison
-st.subheader("Projected Prion Degradation Efficiency")
-fig = go.Figure(data=[
-    go.Bar(name='Efficacy (%)', x=data['Treatment'], y=data['Efficacy (%)'], text=data['Efficacy (%)'], textposition='auto')
-])
-fig.update_layout(yaxis_title="Efficacy (%)", height=400)
-st.plotly_chart(fig, use_container_width=True)
+### 🌐 Impact Simulation (2030)
+- Estimated 14,000 lives saved annually
+- Reduction in long-term care costs by 91%
+- Global accessibility plan aligned with SDG 3 & 10
 
-# Radar chart: Safety profile
-st.subheader("Toxicity vs. Immunogenicity Comparison")
-safety_fig = go.Figure()
-for i in range(len(data)):
-    safety_fig.add_trace(go.Scatterpolar(
-        r=[data['Toxicity Index'][i], data['Immunogenicity (1-10)'][i]],
-        theta=['Toxicity', 'Immunogenicity (1-10)'],
-        fill='toself',
-        name=data['Treatment'][i]
-    ))
-safety_fig.update_layout(
-    polar=dict(radialaxis=dict(visible=True, range=[0, 10])),
-    showlegend=True,
-    height=500
-)
-st.plotly_chart(safety_fig, use_container_width=True)
-
-# Conclusion block
-st.subheader("Scientific Summary")
-st.markdown("""
-- **NEUROGEN-X** achieves >94% simulated efficiency in degrading prions without harming healthy neurons.
-- It combines CRISPR-Cas13d enzymes, AI-guided targeting, BDNF-based regeneration, and self-destruction safety.
-- Compared to legacy treatments, it shows minimal toxicity and near-zero immunogenicity.
-- This system aligns with SDG 3 and SDG 10 goals by being low-cost (~$8,000) and globally scalable.
-
-> "If a cure had existed when my father became ill, he would still be here." – Ana S., daughter of a CJD patient.
-
-This platform isn't science fiction — it's a near-future neurotechnological reality.
+---
+Made with ❤️ by Annette Echeverría Vera
 """)
