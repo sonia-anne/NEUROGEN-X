@@ -1,57 +1,69 @@
 
 import streamlit as st
 import pandas as pd
-import plotly.express as px
+import plotly.graph_objects as go
 
+# Page settings
 st.set_page_config(page_title="NEUROGEN-X Dashboard", layout="wide")
 
-st.title("🧠 NEUROGEN-X | Advanced Nanotherapy for Creutzfeldt-Jakob Disease")
+# Title
+st.title("🧠 NEUROGEN-X | Nanorobotic Cure for Creutzfeldt-Jakob Disease")
 
+# Description
 st.markdown("""
-This dashboard presents interactive scientific data and visual evidence for **NEUROGEN-X**, 
-an innovative nanorobot-based treatment that degrades prions and regenerates brain tissue 
-with CRISPR-Cas13d and neurotrophic scaffolds.
+NEUROGEN-X is a nanotechnology-based therapy that targets and degrades prions using intelligent nanorobots
+equipped with CRISPR-Cas13d and promotes brain regeneration through BDNF-impregnated scaffolds.
+This dashboard showcases simulated comparative efficacy and core features.
 """)
 
-# Simulated efficacy data
-data = {
-    "Therapy": ["Quinacrine", "Gold Nanoparticles (MIT)", "ASO (NIH)", "NEUROGEN-X"],
-    "Efficacy (%)": [0, 48, 70, 94],
-    "Main Limitation": [
-        "Systemic toxicity, liver damage",
-        "Organ accumulation, immune response",
-        "Only preventive, no regeneration",
-        "No significant limitations (simulated)"
-    ]
-}
-df = pd.DataFrame(data)
+# Comparative efficacy data
+therapies = ["Quinacrine", "Gold Nanoparticles (MIT)", "ASO (NIH)", "NEUROGEN-X"]
+efficacy = [0, 48, 70, 94]
+limitations = [
+    "Systemic toxicity, liver damage",
+    "Organ accumulation, immune response",
+    "Only preventive, no regeneration",
+    "No major limitations (simulated)"
+]
 
-st.subheader("📊 Comparative Efficacy of Prion Therapies")
-fig = px.bar(df, x="Therapy", y="Efficacy (%)", color="Therapy", text="Efficacy (%)",
-             hover_data=["Main Limitation"], height=500)
+# Create bar chart
+fig = go.Figure(data=[go.Bar(
+    x=therapies,
+    y=efficacy,
+    text=efficacy,
+    textposition='auto',
+    marker_color=['#FF6666', '#FFCC66', '#66CCFF', '#66FF66'],
+    hovertext=limitations,
+    hoverinfo="text+y"
+)])
+fig.update_layout(
+    title="Simulated Efficacy of Prion Therapies",
+    xaxis_title="Therapy",
+    yaxis_title="Efficacy (%)",
+    height=500
+)
+
+# Show chart
 st.plotly_chart(fig, use_container_width=True)
 
-st.markdown("---")
-st.subheader("🧬 Key Components of NEUROGEN-X")
+# Key Features
+st.markdown("### 🧬 Key Features of NEUROGEN-X")
 st.markdown("""
-- **Intelligent nanorobots** with AI-based molecular GPS  
-- **CRISPR-Cas13d** enzymatic system targeting prions  
-- **BDNF-impregnated scaffolds** for neuronal regeneration  
-- **Autodestruction mechanism** triggered by pH and biochemical signals  
-- **Cost per dose:** ~\$8,000 (vs. \$1.2M in current gene therapies)
+- Nanorobots with molecular GPS guided by AI.
+- CRISPR-Cas13d targeting prions with 94% degradation rate.
+- Neural regeneration via nanoscaffolds and BDNF.
+- Smart auto-destruction to prevent accumulation.
+- Estimated cost: $8,000 per dose (vs $1.2M gene therapies).
 """)
 
-st.markdown("---")
-st.subheader("🌍 Global Impact")
+# Impact Summary
+st.markdown("### 🌍 Global Impact and Accessibility")
 st.markdown("""
-- Aligned with **SDG 3** (Good Health) and **SDG 10** (Reduced Inequalities)  
-- Designed for scalable, low-cost treatment accessible to underserved regions  
-- Projected to reduce CJD mortality and neurological deterioration significantly
+- Aligned with **SDG 3** (Health) and **SDG 10** (Inequality).
+- Designed for global implementation, including low-resource settings.
+- Integrates neuroscience, bioengineering, and AI.
 """)
 
-st.markdown("#### 🔬 Simulation Snapshot")
-st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/CJD_brain.jpg/640px-CJD_brain.jpg",
-         caption="Brain atrophy caused by Creutzfeldt-Jakob Disease", use_column_width=True)
-
+# Footer
 st.markdown("---")
-st.caption("Sonia Annette Echeverría Vera · Neurotechnology Proposal · Ecuador · 2025")
+st.caption("Developed by Sonia Annette Echeverría Vera · Ecuador · 2025")
