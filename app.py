@@ -1,4 +1,4 @@
-# NEUROGEN-X | Streamlit app.py (Advanced)
+# NEUROGEN-X | Streamlit app.py (Advanced + Compatibility Fix)
 
 import streamlit as st
 import plotly.graph_objs as go
@@ -6,6 +6,8 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+import warnings
+warnings.filterwarnings("ignore")
 
 st.set_page_config(page_title="NEUROGEN-X | Scientific Dashboard", layout="wide")
 st.title("🧠 NEUROGEN-X | Advanced Scientific Visualization")
@@ -56,7 +58,6 @@ data = pd.DataFrame({
     'Immune Safety Index': [0.91, 0.93, 0.94, 0.96, 0.97],
     'Self-Destruction Accuracy': [0.88, 0.90, 0.92, 0.93, 0.95]
 }, index=years)
-st.dataframe(data)
 fig4, ax = plt.subplots()
 sns.heatmap(data, annot=True, cmap="YlGnBu", fmt=".2f", ax=ax)
 st.pyplot(fig4)
@@ -81,5 +82,6 @@ This dashboard showcases the high-performance metrics of NEUROGEN-X: a CRISPR-na
 ---
 Developed by Annette Echeverría Vera | Ecuador | 2025
 """)
-if __name__ == "__main__":
-    st.success("✅ App loaded successfully.")
+
+# Final streamlit execution status
+st.success("✅ NEUROGEN-X dashboard loaded successfully.")
