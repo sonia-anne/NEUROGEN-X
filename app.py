@@ -81,3 +81,5 @@ This dashboard showcases the high-performance metrics of NEUROGEN-X: a CRISPR-na
 ---
 Developed by Annette Echeverría Vera | Ecuador | 2025
 """)
+if __name__ == "__main__":
+    st.success("✅ App loaded successfully.")
