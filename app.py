@@ -1,69 +1,61 @@
-
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 
-# Page settings
-st.set_page_config(page_title="NEUROGEN-X Dashboard", layout="wide")
+# Configurar página
+st.set_page_config(page_title="NEUROGEN-X | Dashboard", layout="wide")
 
-# Title
-st.title("🧠 NEUROGEN-X | Nanorobotic Cure for Creutzfeldt-Jakob Disease")
+# Título
+st.title("🧠 NEUROGEN-X: Nanorobotic Therapy for Creutzfeldt-Jakob Disease")
 
-# Description
+# Introducción
 st.markdown("""
-NEUROGEN-X is a nanotechnology-based therapy that targets and degrades prions using intelligent nanorobots
-equipped with CRISPR-Cas13d and promotes brain regeneration through BDNF-impregnated scaffolds.
-This dashboard showcases simulated comparative efficacy and core features.
+NEUROGEN-X is a revolutionary nanobot therapy using CRISPR-Cas13d to degrade prions and regenerate brain tissue.
+This dashboard presents comparative efficacy, core features, and global impact.
 """)
 
-# Comparative efficacy data
-therapies = ["Quinacrine", "Gold Nanoparticles (MIT)", "ASO (NIH)", "NEUROGEN-X"]
-efficacy = [0, 48, 70, 94]
-limitations = [
-    "Systemic toxicity, liver damage",
-    "Organ accumulation, immune response",
-    "Only preventive, no regeneration",
-    "No major limitations (simulated)"
-]
+# Datos comparativos
+df = pd.DataFrame({
+    "Therapy": ["Quinacrine", "MIT Nanoparticles", "NIH ASO", "NEUROGEN-X"],
+    "Efficacy": [0, 48, 70, 94],
+    "Toxicity": ["High", "Moderate", "Low", "None"],
+    "Regeneration": ["❌", "❌", "❌", "✅"]
+})
 
-# Create bar chart
-fig = go.Figure(data=[go.Bar(
-    x=therapies,
-    y=efficacy,
-    text=efficacy,
-    textposition='auto',
-    marker_color=['#FF6666', '#FFCC66', '#66CCFF', '#66FF66'],
-    hovertext=limitations,
-    hoverinfo="text+y"
-)])
-fig.update_layout(
-    title="Simulated Efficacy of Prion Therapies",
-    xaxis_title="Therapy",
-    yaxis_title="Efficacy (%)",
-    height=500
-)
+# Gráfico
+fig = go.Figure(data=[
+    go.Bar(name='Efficacy (%)', x=df["Therapy"], y=df["Efficacy"],
+           marker_color=['red', 'orange', 'blue', 'green'])
+])
+fig.update_layout(title="📊 Therapy Efficacy Comparison",
+                  yaxis_title="Efficacy (%)",
+                  xaxis_title="Therapy",
+                  height=500)
 
-# Show chart
 st.plotly_chart(fig, use_container_width=True)
 
-# Key Features
-st.markdown("### 🧬 Key Features of NEUROGEN-X")
+# Tabla
+st.subheader("📋 Key Comparison Table")
+st.dataframe(df, use_container_width=True)
+
+# Componentes del sistema
+st.subheader("🔬 NEUROGEN-X Components")
 st.markdown("""
-- Nanorobots with molecular GPS guided by AI.
-- CRISPR-Cas13d targeting prions with 94% degradation rate.
-- Neural regeneration via nanoscaffolds and BDNF.
-- Smart auto-destruction to prevent accumulation.
-- Estimated cost: $8,000 per dose (vs $1.2M gene therapies).
+- **AI-guided nanobots** with molecular GPS  
+- **CRISPR-Cas13d** for prion degradation  
+- **BDNF delivery** for neuron regeneration  
+- **Smart autodestruction** upon pH change  
+- **Projected cost:** ~$8,000 vs. $1.2M for current gene therapies  
 """)
 
-# Impact Summary
-st.markdown("### 🌍 Global Impact and Accessibility")
+# Impacto global
+st.subheader("🌍 Global & Ethical Impact")
 st.markdown("""
-- Aligned with **SDG 3** (Health) and **SDG 10** (Inequality).
-- Designed for global implementation, including low-resource settings.
-- Integrates neuroscience, bioengineering, and AI.
+- Targets underserved regions with scalable design  
+- Avoids immune overreaction, over-editing or surgery  
+- Supports SDG 3 and SDG 10 for health and equity  
 """)
 
-# Footer
+# Cierre
 st.markdown("---")
-st.caption("Developed by Sonia Annette Echeverría Vera · Ecuador · 2025")
+st.caption("Created by Sonia Annette Echeverría Vera · Ecuador · 2025")
