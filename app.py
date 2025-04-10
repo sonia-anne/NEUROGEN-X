@@ -50,17 +50,16 @@ fig3.add_trace(go.Scatter(x=years, y=survival_ngx, mode='lines+markers', name='N
 fig3.update_layout(title="Survival Rate (12 months)", xaxis_title="Year", yaxis_title="Probability")
 st.plotly_chart(fig3, use_container_width=True)
 
-# --- Heatmap of Impact Factors ---
-st.subheader("🔬 Heatmap: Multivariate Factors of Success")
+# --- Matrix Overview (Fallback for Heatmap) ---
+st.subheader("🔬 Success Metrics Table")
 data = pd.DataFrame({
     'Prion Clearance': effectiveness_ngx,
     'Synaptic Regeneration': [0.40, 0.45, 0.47, 0.49, 0.50],
     'Immune Safety Index': [0.91, 0.93, 0.94, 0.96, 0.97],
     'Self-Destruction Accuracy': [0.88, 0.90, 0.92, 0.93, 0.95]
 }, index=years)
-fig4, ax = plt.subplots()
-sns.heatmap(data, annot=True, cmap="YlGnBu", fmt=".2f", ax=ax)
-st.pyplot(fig4)
+st.dataframe(data.style.format(\"{:.2%}\"), use_container_width=True)
+
 
 # --- Description ---
 st.markdown("""
